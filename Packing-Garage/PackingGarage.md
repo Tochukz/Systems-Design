@@ -109,4 +109,10 @@ vehicle_type |  enum   |
 * Application UI (Web and/or Mobile)
 * Backend Server
 * Optionally we could spilt the backed into a reservation server and a slot server but may be unnecessary
-* The system may have us reading more than writing and so we may want to create a couple of read replicas for the DB
+* The system may have us reading more than writing and so we may want to create a couple of read replicas for the DB  
+
+![High Level Architecture Design Image](https://raw.githubusercontent.com/Tochukz/Systems-Design/master/Packing-Garage/PakcingGarage.png)
+
+
+#### Online References 
+* [Amazon System Design Interview - Exponent](https://www.youtube.com/watch?v=NtMvNh0WFVM)
