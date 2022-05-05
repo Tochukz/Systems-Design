@@ -1,7 +1,7 @@
 ## System Design
 ### Reservation and Payment System for a Packing Garage
 
-#### Clarify the requirements
+#### Requirment Collection
 * A single garage or multiple garages?
 * Can reserve a packing spot
 * Receive a ticket after reservation
@@ -111,7 +111,7 @@ vehicle_type |  enum   |
 * Optionally we could spilt the backed into a reservation server and a slot server but may be unnecessary
 * The system may have us reading more than writing and so we may want to create a couple of read replicas for the DB  
 
-![High Level Architecture Design Image](https://raw.githubusercontent.com/Tochukz/Systems-Design/master/Packing-Garage/PakcingGarage.png)
+![High Level Architecture Design Image](https://raw.githubusercontent.com/Tochukz/Systems-Design/master/Packing-Garage/PackingGarage.png)
 
 
 #### Online References 
