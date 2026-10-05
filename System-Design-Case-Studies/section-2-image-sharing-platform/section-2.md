@@ -106,7 +106,7 @@ Now when the user needs the Timeline, the request goes to the Timeline Service w
 
 The Downside the the Timeline Design is that the post will not appear in real time on the user's timeline because we only have _Eventual Consistency_.
 
-#### Summary  
+__Step 4: Summary__  
 * Places images in an Object Store, instead of in a database
 * Used the CQRS Pattern to separate:
   - Command - User registration / Updates go to the User Service
@@ -138,7 +138,42 @@ We may introduce an _Image Processing Pipeline_ to compress the images to an acc
 
 __Availability__  
 We do not need to do anything else to address high availability in our Services since we already have multiple instances running behind a Load balancer.
-However, for our database instance, we need to have replication for our database instances so that if one database instance goes down, the other database instance can continue to support the system. 
+However, for our database instance, we need to have replication for our database instances so that if one database instance goes down, the other database instance can continue to support the system.   
+
+We will also deploy our system  to multiple Isolation zones in different Geographic Region or Data centers. And direct uses to the closes region using a _global load balancing service_.  
+This way a power or network outage in one part of our data center won't impact our users, and a complete failure of our data center in on location will simple trigger a redirect of all the traffic to another.   
+
+The level of high availability depends on the number of additional replicas, regions or isolation zones that we add to our system.
+
+__Performace__   
+We will use a _Content Delivery Network_ service distribute static content like HTML, CSS and JavaScript to the edge servers as well as the post images.  We can significantly reduce the response time to our users.  
+
+__Influencer Post Collection__  
+We define an Influencers  as a user that have 1 Million user or more.  
+For Influencer user we do not want to updated the post collection of their followers as that will not be efficient, instead we want to introduce a new collection called Influencer Post collection.  
+
+Influencer Posts
+
+Influencer User Id | Sorted List of Post
+-------------------|--------------------
+influencer_1       | [Post2, Post11, post20, post21, ...]
+influencer_2       | [Post5, Post6, post8, post10, ...]
+
+When the TimeLine Service fetches the timeline for a User, it must check if the user is following any Influencer, fetch the Posts from that Influencer and merge it into the User's Timeline ordering the post my Timestamp.  
+
+__Step 5: Summary__   
+* Improved _scalability_ by:
+  - Introducing a Load Balancer in front of each service
+  - Using Database Sharding
+  - Adding Image Compression for upload images
+  - Place an API Gateway for API calls to our system
+* Provided _High Availability_ by:
+  - Adding Database Replication
+  - Running our system in multiple geographical locations
+* Improved _Performance_ by :
+  - Introducing a CDN
+  - Optimized the Timeline Service by introducing the Influencers Collection
+
 
 ### New Concept Learnt
 #### The CQRS Pattern  
@@ -178,6 +213,11 @@ __Trade-offs__
 * Data Staleness: The view can lag slightly behind the actual source data (eventual consistency).
 * Storage Overhead: Storing duplicate physical data increases disk usage.
 * Write Complexity: You must manage the pipeline or event triggers that keep the view fresh.
+
+#### Database Sharding
+
+
+#### Database Partitioning 
 
 
 ### Question for Consideration
