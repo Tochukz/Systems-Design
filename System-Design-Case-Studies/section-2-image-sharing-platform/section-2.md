@@ -214,10 +214,10 @@ __Trade-offs__
 * Storage Overhead: Storing duplicate physical data increases disk usage.
 * Write Complexity: You must manage the pipeline or event triggers that keep the view fresh.
 
+
+#### Database Partitioning
+
 #### Database Sharding
-
-
-#### Database Partitioning 
 
 
 ### Question for Consideration
